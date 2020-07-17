@@ -1,6 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Buff Up App
+![alt text](https://firebasestorage.googleapis.com/v0/b/test-3e611.appspot.com/o/Screenshot%202020-07-17%20at%2017.49.08.png?alt=media&token=73197b29-da7d-40df-9e5a-f163b7542bf6)
 
 In the project directory, you can run:
 
