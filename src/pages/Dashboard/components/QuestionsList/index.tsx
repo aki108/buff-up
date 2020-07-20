@@ -10,6 +10,8 @@ import useFetch from 'react-fetch-hook'
 
 import { QuestionCard } from './../../../../components'
 import { QuestionsListType, QuestionItemResponse } from 'src/@types'
+import { useStoreon } from 'storeon/react'
+import { StoreState, StoreEvents } from 'src/state/store'
 
 import { List, Header } from './styles'
 
@@ -21,6 +23,8 @@ export const QuestionsList: FunctionComponent = () => {
   const [amount, setAmount] = useState(10)
   const [list, setList] = useState<QuestionItemResponse[]>([])
 
+  const { dispatch } = useStoreon<StoreState, StoreEvents>('chosenQuestion')
+
   const { isLoading, data } = useFetch<QuestionsListType>(
     `https://opentdb.com/api.php?amount=${amount}&category=21&type=multiple`
   )
@@ -28,6 +32,13 @@ export const QuestionsList: FunctionComponent = () => {
   useEffect(() => {
     setList(data?.results || [])
   }, [data])
+
+  const handleSetQuestion = useCallback(
+    (value: QuestionItemResponse) => {
+      dispatch('question/set', value)
+    },
+    [dispatch]
+  )
 
   const removeQuestion = useCallback(
     (question: string) => {
@@ -60,7 +71,7 @@ export const QuestionsList: FunctionComponent = () => {
             {list.map((item: QuestionItemResponse) => {
               return (
                 <QuestionCard
-                  onEdit={() => {}}
+                  onEdit={() => handleSetQuestion(item)}
                   onDelete={() => removeQuestion(item.question)}
                   key={item.question}
                   item={item}
@@ -73,7 +84,7 @@ export const QuestionsList: FunctionComponent = () => {
         )}
       </>
     )
-  }, [list, removeQuestion, amount, isLoading])
+  }, [list, removeQuestion, amount, isLoading, handleSetQuestion])
 
   return <List>{isLoading && !list.length ? <Skeleton /> : renderedList}</List>
 }

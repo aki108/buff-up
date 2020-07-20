@@ -8,7 +8,6 @@ import store from './state/store'
 
 import * as serviceWorker from './serviceWorker'
 
-import './index.css'
 import 'antd/dist/antd.css'
 
 ReactDOM.render(

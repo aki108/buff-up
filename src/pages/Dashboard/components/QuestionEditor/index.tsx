@@ -1,6 +1,8 @@
-import React from 'react'
-import { Form, Input, Button } from 'antd'
+import React, { useState, useMemo, useEffect } from 'react'
+import { Form, Input, Button, Checkbox } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
+import { useStoreon } from 'storeon/react'
+import { StoreState, StoreEvents } from 'src/state/store'
 
 import { Content, Title, AddAnswerButtonWrapper } from './styles'
 
@@ -20,6 +22,10 @@ const formItemLayout = {
   },
 }
 
+const tailLayout = {
+  wrapperCol: { offset: 0, span: 6 },
+}
+
 const formItemLayoutWithOutLabel = {
   wrapperCol: {
     xs: { span: 24, offset: 0 },
@@ -28,6 +34,13 @@ const formItemLayoutWithOutLabel = {
 }
 
 export const QuestionEditor = () => {
+  const [correctAnswer, changeCorrectAnswer] = useState('')
+  const [form] = Form.useForm()
+
+  const { chosenQuestion } = useStoreon<StoreState, StoreEvents>(
+    'chosenQuestion'
+  )
+
   const onFinish = (values: any) => {
     console.log('Success:', values)
   }
@@ -36,13 +49,20 @@ export const QuestionEditor = () => {
     console.log('Failed:', errorInfo)
   }
 
+  useEffect(() => {
+    form.setFieldsValue({
+      question: chosenQuestion?.question,
+      answers: chosenQuestion?.incorrect_answers,
+    })
+  }, [form, chosenQuestion])
+
   return (
     <Content>
       <Title level={3}>Editor</Title>
       <Form
         {...layout}
+        form={form}
         name="basic"
-        initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -60,7 +80,7 @@ export const QuestionEditor = () => {
         </Form.Item>
 
         <Form.Item>
-          <Form.List name="names">
+          <Form.List name="answers">
             {(fields, { add, remove }) => {
               return (
                 <div>
@@ -100,6 +120,15 @@ export const QuestionEditor = () => {
                           }}
                         />
                       ) : null}
+
+                      <Form.Item {...tailLayout} valuePropName="checked">
+                        <Checkbox
+                          checked={!!correctAnswer}
+                          onChange={() => changeCorrectAnswer('trtrt')}
+                        >
+                          Is correct
+                        </Checkbox>
+                      </Form.Item>
                     </Form.Item>
                   ))}
 
