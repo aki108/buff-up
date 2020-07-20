@@ -16,10 +16,14 @@ export const QuestionEditorPreview = () => {
   )
 
   return (
-    <Content>
-      <Title level={3}>Question Preview</Title>
+    <>
+      {chosenQuestion && (
+        <Content>
+          <Title level={3}>Question Preview</Title>
 
-      <QuestionCard preview item={chosenQuestion} />
-    </Content>
+          <QuestionCard preview item={chosenQuestion} />
+        </Content>
+      )}
+    </>
   )
 }

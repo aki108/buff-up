@@ -34,10 +34,17 @@ export const QuestionCard: FunctionComponent<Props> = ({
     ]
 
     if (preview) {
-      data[data.length] = {
-        key: 'Correct Answer:',
-        value: item?.correct_answer,
-      }
+      return [
+        ...data,
+        {
+          key: 'Correct Answer:',
+          value: item?.correct_answer,
+        },
+        {
+          key: 'Incorrect Answer:',
+          value: item?.incorrect_answers.join(', '),
+        },
+      ]
     }
 
     return data

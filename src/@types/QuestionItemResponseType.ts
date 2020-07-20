@@ -1,8 +1,9 @@
 export interface QuestionItemResponse {
-  category: string
-  correct_answer: string
-  difficulty: string
+  id?: string
+  category?: string
+  correct_answer?: string
+  difficulty?: string
   incorrect_answers: string[]
   question: string
-  type: string
+  type?: string
 }

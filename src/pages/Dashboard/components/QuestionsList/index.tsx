@@ -7,6 +7,7 @@ import React, {
 } from 'react'
 import { Typography, Button, Skeleton, Empty, Divider } from 'antd'
 import useFetch from 'react-fetch-hook'
+import { v4 as uuidv4 } from 'uuid'
 
 import { QuestionCard } from './../../../../components'
 import { QuestionsListType, QuestionItemResponse } from 'src/@types'
@@ -30,11 +31,17 @@ export const QuestionsList: FunctionComponent = () => {
   )
 
   useEffect(() => {
-    setList(data?.results || [])
+    setList(
+      data?.results.map((item: QuestionItemResponse) => ({
+        ...item,
+        id: uuidv4(),
+      })) || []
+    )
   }, [data])
 
   const handleSetQuestion = useCallback(
     (value: QuestionItemResponse) => {
+      dispatch('question/reset')
       dispatch('question/set', value)
     },
     [dispatch]
