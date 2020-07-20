@@ -1,6 +1,6 @@
 
 ## Buff Up App
-![alt text](https://firebasestorage.googleapis.com/v0/b/test-3e611.appspot.com/o/Screenshot%202020-07-17%20at%2017.49.08.png?alt=media&token=73197b29-da7d-40df-9e5a-f163b7542bf6)
+![alt text](https://firebasestorage.googleapis.com/v0/b/test-3e611.appspot.com/o/Screenshot%202020-07-20%20at%2013.53.25.png?alt=media&token=e11d8faa-7d48-4293-b2aa-e945a31c0df9)
 
 In the project directory, you can run:
 
